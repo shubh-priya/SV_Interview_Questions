@@ -1,0 +1,20 @@
+//constraint to randomize a 100 bit var such that always and only 5 consecutive bits are 1s
+
+
+class packet;
+  logic [99:0] vari;
+  rand int index;
+  constraint only5_is_one {index<=100; index>=0;}
+  function void post_randomize;
+    vari=100'b11111;
+    vari=vari<<index;
+  endfunction
+endclass
+module test;
+  packet p;
+  initial begin 
+    p=new();
+    p.randomize();
+    $display("randomized index is %0d and var is %0b", p.index, p.vari);
+  end
+endmodule
